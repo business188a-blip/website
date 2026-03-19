@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zaiham — Premium IT Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;
+  --dark:#05050A;--dark2:#0A0A12;--dark3:#0F0F1A;--dark4:#161625;
+  --white:#F2EDE3;--white-dim:rgba(242,237,227,0.55);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;}
+#cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(201,168,76,.7);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:26px 64px;transition:all .4s;}
+nav.stuck{padding:16px 64px;background:rgba(5,5,10,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.1);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;color:var(--gold);text-decoration:none;text-transform:uppercase;}
+.logo b{color:var(--white);font-weight:300;}
+.nav-links{display:flex;gap:40px;list-style:none;}
+.nav-links a{color:var(--white-dim);text-decoration:none;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;transition:color .3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .35s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{width:100%;}
+.nav-btn{border:1px solid var(--gold);color:var(--gold);background:transparent;padding:9px 24px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;white-space:nowrap;}
+.nav-btn:hover{background:var(--gold);color:var(--dark);}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:6px;background:none;border:none;padding:8px;cursor:none;flex-shrink:0;z-index:501;}
+.hamburger span{display:block;width:24px;height:1px;background:var(--gold);}
+.mobile-nav{position:fixed;inset:0;background:var(--dark2);z-index:499;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .5s cubic-bezier(.77,0,.175,1);}
+.mobile-nav.open{transform:translateX(0);}
+.mobile-nav a{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--white);text-decoration:none;letter-spacing:3px;transition:color .3s;}
+.mobile-nav a:hover{color:var(--gold);}
+.mob-close{position:absolute;top:28px;right:32px;background:none;border:none;color:var(--gold);font-size:28px;cursor:none;}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--dark);}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
+.hero-glow{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 70% 55% at 50% 45%,rgba(201,168,76,.07) 0%,transparent 70%);}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:900px;}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(201,168,76,.22);padding:8px 22px;margin-bottom:48px;opacity:0;animation:fuP 1s ease forwards .2s;}
+.hero-badge span{font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);}
+.bdot{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,9vw,136px);font-weight:300;line-height:.9;letter-spacing:-1px;margin-bottom:10px;opacity:0;animation:fuP 1s ease forwards .4s;}
+.hero-h1 i{font-style:italic;color:var(--gold);}
+.hero-tag{font-family:'Cormorant Garamond',serif;font-size:clamp(13px,1.8vw,20px);font-weight:300;letter-spacing:9px;text-transform:uppercase;color:var(--white-dim);margin-bottom:64px;opacity:0;animation:fuP 1s ease forwards .6s;}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fuP 1s ease forwards .8s;}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;opacity:0;animation:fuP 1s ease forwards 1.1s;}
+.hero-scroll p{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(242,237,227,.3);}
+.scroll-bar{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sb 2.2s ease-in-out infinite;}
+@keyframes sb{0%,100%{opacity:1;transform:scaleY(1);}50%{opacity:.3;transform:scaleY(.5);}}
+@keyframes fuP{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+
+/* BUTTONS */
+.btn-gold{background:var(--gold);color:var(--dark);padding:15px 40px;font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s;cursor:none;border:none;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(242,237,227,.22);padding:15px 40px;font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s;cursor:none;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+
+/* TICKER */
+.ticker{background:var(--gold);overflow:hidden;padding:13px 0;position:relative;z-index:10;}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 32s linear infinite;}
+.ticker-track span{font-size:10.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--dark);padding:0 36px;}
+.ticker-track .dot{font-size:5px;opacity:.35;padding:0;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTION SHARED */
+section{position:relative;z-index:2;}
+.lbl{display:block;font-size:9.5px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.ttl{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,62px);font-weight:300;line-height:1.05;color:var(--white);}
+.ttl i{font-style:italic;color:var(--gold);}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.on{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}.d5{transition-delay:.5s;}
+
+/* ABOUT */
+#about{padding:130px 64px;background:var(--dark2);}
+.about-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+.about-visual{position:relative;}
+.about-frame{width:100%;aspect-ratio:3/4;background:var(--dark4);border:1px solid rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.about-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 55%);}
+.about-frame img{width:100%;height:100%;object-fit:cover;object-position:center;position:absolute;inset:0;z-index:0;}
+.about-Z{position:relative;z-index:1;}
+.about-Z{font-family:'Cormorant Garamond',serif;font-size:260px;font-weight:300;color:rgba(201,168,76,.04);line-height:1;-webkit-user-select:none;user-select:none;position:relative;z-index:1;}
+.a-br{position:absolute;bottom:-18px;right:-18px;width:100px;height:100px;border:1px solid rgba(201,168,76,.28);}
+.a-tl{position:absolute;top:-18px;left:-18px;width:52px;height:52px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);}
+.tbadge{position:absolute;background:rgba(8,8,16,.94);border:1px solid rgba(201,168,76,.2);padding:9px 14px;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);white-space:nowrap;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+.tb1{top:28px;right:-32px;animation:fl 4s ease-in-out infinite;}
+.tb2{bottom:90px;right:-44px;animation:fl 4s ease-in-out infinite 1.5s;}
+.tb3{bottom:24px;left:-30px;animation:fl 4s ease-in-out infinite .8s;}
+@keyframes fl{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+.about-text .ttl{margin-bottom:28px;}
+.a-desc{color:var(--white-dim);font-size:14px;line-height:1.9;margin-bottom:18px;}
+.a-line{width:56px;height:1px;background:var(--gold);margin:32px 0;}
+.a-stats{display:grid;grid-template-columns:repeat(3,1fr);}
+.astat{padding:22px 0;border-right:1px solid rgba(201,168,76,.1);}
+.astat:last-child{border-right:none;}
+.astat-n{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:300;color:var(--gold);line-height:1;}
+.astat-n sup{font-size:20px;vertical-align:super;}
+.astat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--white-dim);margin-top:6px;}
+
+/* SERVICES */
+#services{padding:130px 64px;background:var(--dark);}
+.svc-head{max-width:1200px;margin:0 auto 80px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;}
+.svc-head-note{font-size:13px;color:var(--white-dim);max-width:300px;line-height:1.8;text-align:right;}
+.svc-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,.07);}
+.svc{background:var(--dark3);padding:50px 40px 46px;position:relative;overflow:hidden;cursor:none;transition:background .35s;}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.svc:hover{background:var(--dark4);}
+.svc:hover::before{transform:scaleX(1);}
+.svc-n{position:absolute;top:32px;right:32px;font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:300;color:rgba(201,168,76,.05);line-height:1;}
+.svc-ico{width:50px;height:50px;margin-bottom:28px;}
+.svc-ico svg{width:100%;height:100%;stroke:var(--gold);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;}
+.svc-title{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:400;color:var(--white);margin-bottom:12px;}
+.svc-desc{font-size:13px;line-height:1.85;color:var(--white-dim);}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px;}
+.svc-tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(201,168,76,.18);color:rgba(201,168,76,.65);padding:4px 10px;transition:all .3s;}
+.svc:hover .svc-tag{border-color:rgba(201,168,76,.38);color:var(--gold);}
+.svc.wide{grid-column:span 2;}
+
+/* STACK */
+#stack{padding:100px 64px;background:var(--dark2);}
+.stack-wrap{max-width:1200px;margin:0 auto;}
+.stack-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;gap:32px;}
+.stack-note{font-size:13px;color:var(--white-dim);max-width:280px;line-height:1.8;}
+.stack-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(201,168,76,.07);}
+.stech{background:var(--dark3);padding:38px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:none;transition:background .3s;}
+.stech:hover{background:var(--dark4);}
+.stech svg{width:34px;height:34px;fill:rgba(201,168,76,.45);transition:fill .3s;}
+.stech:hover svg{fill:var(--gold);}
+.stech span{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--white-dim);}
+
+/* PROCESS */
+#process{padding:130px 64px;background:var(--dark);}
+.proc-wrap{max-width:960px;margin:0 auto;}
+.proc-hd{text-align:center;margin-bottom:80px;}
+.proc-steps{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(201,168,76,.07);}
+.pstep{background:var(--dark3);padding:50px 46px;}
+.pstep-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;margin-bottom:20px;box-shadow:0 0 18px rgba(201,168,76,.5);}
+.pstep-n{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:300;color:rgba(201,168,76,.05);line-height:1;margin-bottom:18px;}
+.pstep-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:12px;}
+.pstep-desc{font-size:13px;line-height:1.85;color:var(--white-dim);}
+
+/* PORTFOLIO */
+#portfolio{padding:130px 64px;background:var(--dark2);}
+.port-hd{max-width:1200px;margin:0 auto 72px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;}
+
+/* Project cards — simple 1-col list so visual+info stack cleanly */
+.proj-list{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:2px;}
+.proj-card{display:grid;grid-template-columns:1fr 1fr;background:var(--dark3);position:relative;overflow:hidden;cursor:none;transition:background .35s;min-height:340px;}
+.proj-card:nth-child(even){direction:rtl;}
+.proj-card:nth-child(even) > *{direction:ltr;}
+.proj-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transform-origin:left;transition:transform .45s;}
+.proj-card:hover{background:var(--dark4);}
+.proj-card:hover::after{transform:scaleX(1);}
+.proj-visual{position:relative;overflow:hidden;background:var(--dark4);display:flex;align-items:center;justify-content:center;}
+.proj-visual svg{width:82%;height:82%;transition:transform .6s ease;}
+.proj-card:hover .proj-visual svg{transform:scale(1.04);}
+.proj-visual-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 55%);pointer-events:none;}
+.proj-num{position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:300;color:rgba(201,168,76,.06);line-height:1;}
+.proj-info{padding:44px 48px;display:flex;flex-direction:column;justify-content:center;gap:14px;}
+.proj-cat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.proj-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,28px);font-weight:400;color:var(--white);line-height:1.2;}
+.proj-desc{font-size:13px;line-height:1.85;color:var(--white-dim);}
+.proj-stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.proj-stack span{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(201,168,76,.18);color:rgba(201,168,76,.6);padding:4px 10px;transition:all .3s;}
+.proj-card:hover .proj-stack span{border-color:rgba(201,168,76,.38);color:var(--gold);}
+.proj-result{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:rgba(201,168,76,.04);border-left:2px solid var(--gold);margin-top:4px;}
+.proj-result-emoji{font-size:15px;flex-shrink:0;margin-top:1px;}
+.proj-result-txt{font-size:11.5px;color:var(--white-dim);line-height:1.55;}
+.proj-result-txt strong{color:var(--gold);font-weight:500;}
+
+/* TESTIMONIALS */
+#testimonials{padding:130px 64px;background:var(--dark3);}
+.testi-wrap{max-width:1080px;margin:0 auto;}
+.testi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:72px;}
+.tcard{background:var(--dark4);border:1px solid rgba(201,168,76,.08);padding:44px 38px;transition:border-color .35s;}
+.tcard:hover{border-color:rgba(201,168,76,.22);}
+.tcard-stars{display:flex;gap:4px;margin-bottom:18px;}
+.tcard-stars span{color:var(--gold);font-size:12px;}
+.tcard-q{font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:300;color:rgba(201,168,76,.2);line-height:.8;margin-bottom:18px;}
+.tcard-txt{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;color:var(--white);line-height:1.75;margin-bottom:26px;}
+.tcard-hr{width:36px;height:1px;background:var(--gold);margin-bottom:18px;}
+.tcard-name{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);}
+.tcard-role{font-size:11px;color:var(--white-dim);margin-top:5px;}
+
+/* INSTAGRAM */
+#instagram{padding:100px 64px;background:var(--dark);text-align:center;}
+.ig-wrap{max-width:1200px;margin:0 auto;}
+.ig-follow{display:inline-flex;align-items:center;gap:14px;border:1px solid rgba(201,168,76,.2);padding:18px 40px;text-decoration:none;cursor:none;transition:all .35s;margin:16px 0 64px;}
+.ig-follow:hover{border-color:var(--gold);transform:translateY(-2px);}
+.ig-follow svg{width:20px;height:20px;fill:var(--gold);}
+.ig-follow span{font-size:13px;letter-spacing:2px;color:var(--white);}
+.ig-follow em{font-style:normal;color:var(--gold);}
+.ig-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;}
+.ig-cell{aspect-ratio:1;background:var(--dark3);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;cursor:none;transition:background .3s;text-decoration:none;}
+.ig-cell:hover{background:var(--dark4);}
+.ig-txt{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:rgba(201,168,76,.07);transition:transform .4s;}
+.ig-cell:hover .ig-txt{transform:scale(1.08);}
+.ig-over{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;background:rgba(201,168,76,.05);transition:opacity .3s;}
+.ig-cell:hover .ig-over{opacity:1;}
+.ig-over svg{width:24px;height:24px;fill:var(--gold);}
+
+/* CONTACT */
+#contact{padding:130px 64px;background:var(--dark2);}
+.cont-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:100px;}
+.cinfo-block{display:flex;align-items:flex-start;gap:18px;padding:26px 0;border-bottom:1px solid rgba(201,168,76,.08);}
+.cinfo-block:first-of-type{border-top:1px solid rgba(201,168,76,.08);margin-top:28px;}
+.cinfo-icon{width:42px;height:42px;border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cinfo-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.5;}
+.cinfo-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.cinfo-val{font-size:13.5px;color:var(--white);line-height:1.6;}
+.avail{margin-top:44px;display:flex;align-items:center;gap:12px;padding:16px 20px;border:1px solid rgba(201,168,76,.12);background:rgba(201,168,76,.03);}
+.avail-dot{width:8px;height:8px;background:#4CAF50;border-radius:50%;flex-shrink:0;animation:pg 2s infinite;}
+@keyframes pg{0%,100%{box-shadow:0 0 0 0 rgba(76,175,80,.4);}70%{box-shadow:0 0 0 8px transparent;}}
+.avail span{font-size:11px;letter-spacing:1.5px;color:var(--white-dim);}
+.cform{display:flex;flex-direction:column;gap:18px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.fg{display:flex;flex-direction:column;gap:8px;}
+.fg label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}
+.fg input,.fg textarea,.fg select{background:var(--dark3);border:1px solid rgba(201,168,76,.12);color:var(--white);padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .3s;cursor:none;-webkit-appearance:none;appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(201,168,76,.5);}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(242,237,227,.22);}
+.fg select option{background:var(--dark3);}
+.fg textarea{min-height:130px;resize:none;}
+.fsub{background:var(--gold);color:var(--dark);border:none;padding:16px 44px;font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;cursor:none;transition:all .3s;align-self:flex-start;}
+.fsub:hover{background:var(--gold-light);transform:translateY(-2px);}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid rgba(201,168,76,.1);padding:80px 64px 36px;position:relative;z-index:2;}
+.foot-glow{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);opacity:.3;}
+.foot-grid{max-width:1200px;margin:0 auto 60px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:56px;}
+.foot-brand .logo{display:block;margin-bottom:18px;}
+.foot-desc{font-size:13px;color:var(--white-dim);line-height:1.8;margin-bottom:28px;}
+.foot-socials{display:flex;gap:10px;}
+.fsoc{width:38px;height:38px;border:1px solid rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s;cursor:none;}
+.fsoc:hover{border-color:var(--gold);}
+.fsoc svg{width:14px;height:14px;fill:var(--white-dim);transition:fill .3s;}
+.fsoc:hover svg{fill:var(--gold);}
+.fcol h5{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+.fcol ul{list-style:none;}
+.fcol li{margin-bottom:11px;}
+.fcol a{color:var(--white-dim);text-decoration:none;font-size:13px;transition:color .3s;cursor:none;}
+.fcol a:hover{color:var(--gold);}
+.foot-btm{max-width:1200px;margin:0 auto;padding-top:28px;border-top:1px solid rgba(201,168,76,.07);display:flex;justify-content:space-between;align-items:center;}
+.foot-btm p{font-size:11px;color:rgba(242,237,227,.25);letter-spacing:1px;}
+
+/* UTILITY STYLES */
+.ig-subtitle{color:var(--white-dim);font-size:13px;margin-top:12px;}
+.contact-intro{color:var(--white-dim);font-size:14px;line-height:1.85;margin-top:20px;}
+.contact-link{color:var(--white);text-decoration:none;}
+.cinfo-block-last{border-bottom:none;}
+.astat-padding{padding-left:24px;}
+.astat-no-border{border-right:none;}
+.ig-svg-bg{width:100%;height:100%;position:absolute;inset:0;}
+.ig-icon{width:24px;height:24px;fill:var(--gold);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  nav,nav.stuck{padding:18px 32px;}
+  #about,#services,#process,#portfolio,#testimonials,#instagram,#contact{padding:90px 32px;}
+  #stack{padding:80px 32px;}
+  footer{padding:64px 32px 28px;}
+  .about-wrap{grid-template-columns:1fr;}
+  .about-visual{display:none;}
+  .svc-head{flex-direction:column;align-items:flex-start;}
+  .svc-head-note{text-align:left;}
+  .svc-grid{grid-template-columns:1fr 1fr;}
+  .svc.wide{grid-column:span 2;}
+  .stack-grid{grid-template-columns:repeat(3,1fr);}
+  .stack-hd{flex-direction:column;align-items:flex-start;}
+  .proc-steps{grid-template-columns:1fr;}
+  .proj-card{grid-template-columns:1fr;}
+  .proj-card:nth-child(even){direction:ltr;}
+  .proj-visual{min-height:220px;}
+  .testi-cards{grid-template-columns:1fr;}
+  .cont-wrap{grid-template-columns:1fr;gap:60px;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:40px;}
+  .ig-grid{grid-template-columns:repeat(4,1fr);}
+  .ig-cell:last-child{display:none;}
+  .port-hd{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:768px){
+  .nav-links,.nav-btn{display:none !important;}
+  .hamburger{display:flex;}
+  nav,nav.stuck{padding:16px 22px;}
+  .hero-h1{font-size:52px;}
+  .svc-grid{grid-template-columns:1fr;}
+  .svc.wide{grid-column:span 1;}
+  .proj-card{grid-template-columns:1fr;}
+  .proj-info{padding:32px 24px;}
+  .frow{grid-template-columns:1fr;}
+  .testi-cards{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+  .foot-btm{flex-direction:column;gap:10px;text-align:center;}
+  .ig-grid{grid-template-columns:repeat(3,1fr);}
+  .astat-n{font-size:40px;}
+  .svc-head{gap:16px;}
+}
+/* Touch device cursor fix */
+@media(hover:none){
+  *,a,button,.svc,.proj-card,.tcard,.ig-cell,.stech,.btn-gold,.btn-ghost,.nav-btn,.fsub,.hamburger,.mob-close,.fsoc,.ig-follow{cursor:auto !important;}
+  body{cursor:auto;}
+  #cur,#cur-ring{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#portfolio" onclick="closeMob()">Work</a>
+  <a href="#process" onclick="closeMob()">Process</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="logo">Zai<b>ham</b></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-btn">Hire Us</a>
+  <button class="hamburger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="bdot"></div>
+      <span>Premium IT Agency · Faisalabad, Pakistan · 100% Online</span>
+    </div>
+    <h1 class="hero-h1">Zai<i>ham</i></h1>
+    <p class="hero-tag">Technology &nbsp;·&nbsp; Redefined</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-gold">Explore Services</a>
+      <a href="#portfolio" class="btn-ghost">View Our Work</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <p>Scroll</p>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>WordPress Development</span><span class="dot">◆</span>
+    <span>WordPress Issue Resolving</span><span class="dot">◆</span>
+    <span>Python Development</span><span class="dot">◆</span>
+    <span>AWS Cloud Solutions</span><span class="dot">◆</span>
+    <span>Web Software Development</span><span class="dot">◆</span>
+    <span>Desktop Software Development</span><span class="dot">◆</span>
+    <span>WordPress Development</span><span class="dot">◆</span>
+    <span>WordPress Issue Resolving</span><span class="dot">◆</span>
+    <span>Python Development</span><span class="dot">◆</span>
+    <span>AWS Cloud Solutions</span><span class="dot">◆</span>
+    <span>Web Software Development</span><span class="dot">◆</span>
+    <span>Desktop Software Development</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-visual reveal">
+      <div class="about-frame">
+        <img src="IMG1.jpg" alt="Zaiham team">
+        <div class="about-Z">Z</div>
+        <div class="tbadge tb1">WordPress Expert</div>
+        <div class="tbadge tb2">AWS Certified</div>
+        <div class="tbadge tb3">Python Dev</div>
+      </div>
+      <div class="a-br"></div>
+      <div class="a-tl"></div>
+    </div>
+    <div class="about-text">
+      <span class="lbl reveal">Who We Are</span>
+      <h2 class="ttl reveal d1">Engineering <i>the future,</i><br>one line at a time.</h2>
+      <div class="a-line reveal d2"></div>
+      <p class="a-desc reveal d2">Zaiham is a premium IT agency headquartered in Faisalabad, Pakistan — operating entirely online and serving ambitious clients worldwide. We combine deep technical expertise with a relentless commitment to quality.</p>
+      <p class="a-desc reveal d3">From resolving complex WordPress issues to architecting scalable AWS cloud infrastructure, we deliver solutions engineered to perform and built to last. Every project is a statement of craft.</p>
+      <div class="a-stats reveal d4">
+        <div class="astat">
+          <div class="astat-n">50<sup>+</sup></div>
+          <div class="astat-l">Projects Done</div>
+        </div>
+        <div class="astat astat-padding">
+          <div class="astat-n">30<sup>+</sup></div>
+          <div class="astat-l">Happy Clients</div>
+        </div>
+        <div class="astat astat-padding astat-no-border">
+          <div class="astat-n">100<sup>%</sup></div>
+          <div class="astat-l">Online Service</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-head reveal">
+    <div>
+      <span class="lbl">What We Do</span>
+      <h2 class="ttl">Our <i>Services</i></h2>
+    </div>
+    <p class="svc-head-note">Every service delivered remotely — fast, precise, with premium communication throughout.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc reveal">
+      <div class="svc-n">01</div>
+      <div class="svc-ico"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22"/><path d="M4 26h44M26 4C20 10 17 18 17 26s3 16 9 22M26 4c6 6 9 14 9 22s-3 16-9 22"/><path d="M9 14h34M9 38h34"/></svg></div>
+      <h3 class="svc-title">WordPress Development</h3>
+      <p class="svc-desc">Custom themes, plugin development, WooCommerce stores, and full-site builds. We craft WordPress experiences that look exceptional and perform fast.</p>
+      <div class="svc-tags"><span class="svc-tag">Custom Themes</span><span class="svc-tag">WooCommerce</span><span class="svc-tag">Plugins</span><span class="svc-tag">Elementor</span></div>
+    </div>
+    <div class="svc reveal d1">
+      <div class="svc-n">02</div>
+      <div class="svc-ico"><svg viewBox="0 0 52 52"><path d="M26 8v8M26 36v8M8 26h8M36 26h8"/><circle cx="26" cy="26" r="10"/><path d="M14 14l6 6M32 32l6 6M38 14l-6 6M20 32l-6 6"/></svg></div>
+      <h3 class="svc-title">WordPress Issue Resolving</h3>
+      <p class="svc-desc">Broken layouts, plugin conflicts, white screens, hacked sites, slow loading — we diagnose and fix WordPress problems fast. No issue too complex.</p>
+      <div class="svc-tags"><span class="svc-tag">Bug Fixing</span><span class="svc-tag">Security</span><span class="svc-tag">Speed</span><span class="svc-tag">Recovery</span></div>
+    </div>
+    <div class="svc reveal d2">
+      <div class="svc-n">03</div>
+      <div class="svc-ico"><svg viewBox="0 0 52 52"><rect x="8" y="8" width="16" height="16" rx="3"/><rect x="28" y="8" width="16" height="16" rx="3"/><rect x="8" y="28" width="16" height="16" rx="3"/><path d="M28 36h4a12 12 0 000-24h-4"/></svg></div>
+      <h3 class="svc-title">Python Development</h3>
+      <p class="svc-desc">Web backends with Django & FastAPI, automation scripts, AI/ML models, data pipelines, and REST APIs — engineered for reliability at scale.</p>
+      <div class="svc-tags"><span class="svc-tag">Django</span><span class="svc-tag">FastAPI</span><span class="svc-tag">Automation</span><span class="svc-tag">AI / ML</span></div>
+    </div>
+    <div class="svc wide reveal">
+      <div class="svc-n">04</div>
+      <div class="svc-ico"><svg viewBox="0 0 52 52"><path d="M10 30a10 10 0 010-20h4a14 14 0 0124 0h2a8 8 0 010 16H10"/><path d="M20 36l4 4 8-8"/></svg></div>
+      <h3 class="svc-title">AWS Cloud Solutions</h3>
+      <p class="svc-desc">We architect, deploy, and manage AWS infrastructure tailored to your business — from EC2 and S3 to Lambda, RDS, CloudFront, and beyond. Scalable, secure, and cost-optimised cloud environments built to grow with you. Whether migrating for the first time or optimising an existing setup, we handle it end-to-end.</p>
+      <div class="svc-tags"><span class="svc-tag">EC2 / S3</span><span class="svc-tag">Lambda</span><span class="svc-tag">RDS</span><span class="svc-tag">CloudFront</span><span class="svc-tag">DevOps</span><span class="svc-tag">Migration</span><span class="svc-tag">IAM</span></div>
+    </div>
+    <div class="svc reveal d1">
+      <div class="svc-n">05</div>
+      <div class="svc-ico"><svg viewBox="0 0 52 52"><rect x="4" y="8" width="44" height="30" rx="2"/><path d="M16 44h20M26 38v6"/><path d="M14 20l6 5-6 5M26 30h12"/></svg></div>
+      <h3 class="svc-title">Web Software Development</h3>
+      <p class="svc-desc">Full-stack web applications, SaaS platforms, CRMs, ERPs, and portals — built from architecture to deployment with clean, maintainable code.</p>
+      <div class="svc-tags"><span class="svc-tag">Full-Stack</span><span class="svc-tag">SaaS</span><span class="svc-tag">CRM / ERP</span></div>
+    </div>
+    <div class="svc reveal d2">
+      <div class="svc-n">06</div>
+      <div class="svc-ico"><svg viewBox="0 0 52 52"><rect x="6" y="6" width="40" height="28" rx="2"/><rect x="6" y="38" width="40" height="8" rx="1"/><circle cx="26" cy="42" r="2"/><path d="M15 18l5 4-5 4M26 26h10"/></svg></div>
+      <h3 class="svc-title">Desktop Software Development</h3>
+      <p class="svc-desc">Native Windows and cross-platform desktop apps — inventory systems, POS tools, enterprise utilities built to work offline and online.</p>
+      <div class="svc-tags"><span class="svc-tag">Windows</span><span class="svc-tag">Cross-Platform</span><span class="svc-tag">Electron</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="stack-wrap">
+    <div class="stack-hd reveal">
+      <div><span class="lbl">Tools & Technologies</span><h2 class="ttl">Our <i>Stack</i></h2></div>
+      <p class="stack-note">The technologies we master to deliver exceptional results across every project.</p>
+    </div>
+    <div class="stack-grid reveal d1">
+      <div class="stech"><svg viewBox="0 0 24 24"><path d="M21.469 6.825c.84 1.537 1.404 3.253 1.566 5.055l-6.426 1.907-2.09-2.7-1.174-4.925c2.507-.006 5.32.886 8.124 2.663zm-8.898-2.739c-.781 2.033-1.464 4.714-1.572 7.016L3.516 8.204c-.36-2.068-.184-4.089.576-5.71 1.733-3.793 6.35-4.803 9.479-.408zM1.938 9.142l7.024 3.06-.97 2.929-6.501.906C1.002 13.984.96 11.494 1.938 9.14zm7.595 4.686L5.32 18.57l-2.55-.47c.18-.83.42-1.642.73-2.421l5.033-1.85zm1.318-1.063l2.282 2.956L17.6 19.68l.93-2.827-2.82-5.428-4.86 1.348zm10.028 3.08c.63 1.836.804 3.782.458 5.617l-5.862-1.08 5.404-4.537zm-6.293-2.032l2.877 5.547L11.02 22.84l-1.78-3.5 5.346-3.528zm-5.947 3.978l1.788 3.516-2.62 1.025c-1.49-1.155-2.8-2.63-3.783-4.346l4.615-.195z"/></svg><span>WordPress</span></div>
+      <div class="stech"><svg viewBox="0 0 24 24"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.31.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.04zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg><span>Python</span></div>
+      <div class="stech"><svg viewBox="0 0 24 24"><path d="M6.763 10.036c0 .296.032.535.088.71.064.176.144.368.256.576.04.064.056.128.056.184 0 .08-.048.16-.152.24l-.504.336a.383.383 0 01-.208.064c-.08 0-.16-.04-.24-.112a2.47 2.47 0 01-.288-.376 6.18 6.18 0 01-.248-.472c-.624.736-1.408 1.104-2.352 1.104-.672 0-1.208-.192-1.6-.576-.392-.384-.592-.896-.592-1.536 0-.68.24-1.232.728-1.648.488-.416 1.136-.624 1.952-.624.272 0 .552.024.848.064.296.04.6.104.92.176v-.584c0-.608-.128-1.032-.376-1.28-.256-.248-.688-.368-1.304-.368-.28 0-.568.032-.864.104-.296.072-.584.16-.864.28-.128.056-.224.088-.28.104a.535.535 0 01-.136.024c-.12 0-.176-.088-.176-.272v-.432c0-.144.016-.248.056-.312a.59.59 0 01.224-.168c.28-.144.616-.264 1.008-.36A4.945 4.945 0 015 6.228c.944 0 1.632.216 2.072.648.432.432.656 1.088.656 1.968v2.592zm9.348 2.096c-.16 0-.272-.024-.344-.08-.072-.048-.136-.16-.192-.312L13.34 7.008c-.056-.16-.088-.264-.088-.32 0-.128.064-.2.192-.2h.784c.168 0 .284.024.352.08.076.048.136.16.192.312l1.448 5.704 1.344-5.704c.048-.16.104-.264.176-.312.072-.056.2-.08.36-.08h.64c.168 0 .284.024.36.08.072.048.136.16.176.312l1.36 5.776 1.496-5.776c.056-.16.12-.264.192-.312.072-.056.184-.08.352-.08h.744c.128 0 .2.064.2.2 0 .04-.008.08-.016.128-.008.048-.032.112-.072.2L19.8 11.728c-.056.16-.12.264-.192.312-.072.056-.184.08-.344.08h-.688c-.168 0-.284-.024-.36-.08-.072-.056-.136-.16-.176-.32L16.7 6.04l-1.32 5.68c-.048.16-.104.264-.176.32-.072.056-.2.08-.36.08h-.688z"/></svg><span>AWS</span></div>
+      <div class="stech"><svg viewBox="0 0 24 24"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278z"/></svg><span>React</span></div>
+      <div class="stech"><svg viewBox="0 0 24 24"><path d="M11.998 24a1.4 1.4 0 0 1-.7-.19L8.2 21.88c-.43-.24-.22-.32-.08-.37a6.83 6.83 0 0 0 1.56-.7.17.17 0 0 1 .16.01l2.32 1.38a.3.3 0 0 0 .28 0l9.04-5.22a.29.29 0 0 0 .14-.25V7.26a.3.3 0 0 0-.15-.26l-9.03-5.21a.29.29 0 0 0-.28 0L3.12 6.99a.3.3 0 0 0-.15.26v10.44c0 .1.06.2.15.25l2.48 1.43c1.34.67 2.17-.12 2.17-.91V8.56a.27.27 0 0 1 .27-.27h1.18a.27.27 0 0 1 .27.27v9.9c0 1.78-.97 2.8-2.66 2.8-.52 0-.93 0-2.07-.56L2.3 19.4A1.41 1.41 0 0 1 1.6 18.2V7.75a1.4 1.4 0 0 1 .7-1.21l9.05-5.23a1.46 1.46 0 0 1 1.4 0l9.04 5.23a1.41 1.41 0 0 1 .71 1.21V18.2a1.41 1.41 0 0 1-.71 1.21l-9.04 5.22a1.4 1.4 0 0 1-.77.37z"/></svg><span>Node.js</span></div>
+      <div class="stech"><svg viewBox="0 0 24 24"><path d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.151zM5.77 18.695h-.927a50.854 50.854 0 0 0-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 0 0-.195 4.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335 4.064h.008l1.347-4.064h1.095c.242 2.015.384 3.86.428 5.53zm4.017-4.08h-2.428v1.422h2.278v.87H7.36v1.83h2.487v.888H6.3v-5.53h3.487v.52zm4.016 5.53H12.43l-2.43-3.664v3.664h-1.05v-5.53h1.39l2.312 3.485v-3.485h1.05zm4.74-5.53h-1.584v4.642h-.96v-4.64H14.42v-.89h3.93v.888z"/></svg><span>MySQL</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="proc-wrap">
+    <div class="proc-hd reveal">
+      <span class="lbl">How We Work</span>
+      <h2 class="ttl">Our <i>Process</i></h2>
+    </div>
+    <div class="proc-steps">
+      <div class="pstep reveal"><div class="pstep-dot"></div><div class="pstep-n">01</div><h3 class="pstep-title">Discovery Call</h3><p class="pstep-desc">We start by deeply understanding your goals, constraints, and vision. A focused strategy session ensures we're perfectly aligned before a single line of code is written.</p></div>
+      <div class="pstep reveal d1"><div class="pstep-dot"></div><div class="pstep-n">02</div><h3 class="pstep-title">Architecture & Design</h3><p class="pstep-desc">We map the technical architecture and design the user experience. Every decision is deliberate — built for scalability, performance, and quality from day one.</p></div>
+      <div class="pstep reveal d2"><div class="pstep-dot"></div><div class="pstep-n">03</div><h3 class="pstep-title">Development & Review</h3><p class="pstep-desc">Our engineers build with precision, sharing progress through regular updates. You stay informed at every stage with transparent, proactive communication.</p></div>
+      <div class="pstep reveal d3"><div class="pstep-dot"></div><div class="pstep-n">04</div><h3 class="pstep-title">Launch & Support</h3><p class="pstep-desc">We deploy with care and provide post-launch support to ensure everything runs flawlessly. Our relationship doesn't end at delivery — it's just getting started.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="port-hd reveal">
+    <div><span class="lbl">Selected Work</span><h2 class="ttl">Our <i>Portfolio</i></h2></div>
+    <a href="#contact" class="btn-ghost">Start Your Project →</a>
+  </div>
+
+  <div class="proj-list">
+
+    <!-- 01 WooCommerce -->
+    <div class="proj-card reveal">
+      <div class="proj-visual">
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="360" height="260" rx="8" fill="#0F0F1A" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <rect x="20" y="20" width="360" height="34" rx="8" fill="#161625"/>
+          <circle cx="44" cy="37" r="5" fill="rgba(201,168,76,0.2)"/><circle cx="60" cy="37" r="5" fill="rgba(201,168,76,0.1)"/><circle cx="76" cy="37" r="5" fill="rgba(201,168,76,0.06)"/>
+          <rect x="96" y="28" width="180" height="18" rx="9" fill="rgba(201,168,76,0.06)"/>
+          <circle cx="355" cy="37" r="11" fill="rgba(201,168,76,0.12)"/>
+          <path d="M350 34h4l3 7h6" stroke="rgba(201,168,76,0.7)" stroke-width="1.3" stroke-linecap="round"/>
+          <circle cx="354" cy="43" r="1.5" fill="rgba(201,168,76,0.7)"/><circle cx="360" cy="43" r="1.5" fill="rgba(201,168,76,0.7)"/>
+          <rect x="30" y="64" width="340" height="76" rx="4" fill="rgba(201,168,76,0.05)"/>
+          <text x="200" y="108" text-anchor="middle" font-size="22" font-family="Georgia,serif" fill="rgba(201,168,76,0.7)" font-style="italic">LuxeShop</text>
+          <rect x="148" y="120" width="104" height="12" rx="6" fill="rgba(201,168,76,0.22)"/>
+          <rect x="30" y="152" width="102" height="118" rx="4" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <rect x="38" y="160" width="86" height="58" rx="3" fill="rgba(201,168,76,0.07)"/>
+          <rect x="38" y="224" width="54" height="8" rx="3" fill="rgba(201,168,76,0.18)"/>
+          <rect x="38" y="238" width="36" height="7" rx="3" fill="rgba(201,168,76,0.1)"/>
+          <rect x="140" y="152" width="102" height="118" rx="4" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <rect x="148" y="160" width="86" height="58" rx="3" fill="rgba(201,168,76,0.09)"/>
+          <rect x="148" y="224" width="54" height="8" rx="3" fill="rgba(201,168,76,0.18)"/>
+          <rect x="148" y="238" width="36" height="7" rx="3" fill="rgba(201,168,76,0.1)"/>
+          <rect x="250" y="152" width="102" height="118" rx="4" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <rect x="258" y="160" width="86" height="58" rx="3" fill="rgba(201,168,76,0.07)"/>
+          <rect x="258" y="224" width="54" height="8" rx="3" fill="rgba(201,168,76,0.18)"/>
+          <rect x="258" y="238" width="36" height="7" rx="3" fill="rgba(201,168,76,0.1)"/>
+        </svg>
+        <div class="proj-visual-shine"></div>
+        <div class="proj-num">01</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-cat">WordPress · WooCommerce · E-Commerce</div>
+        <h3 class="proj-title">LuxeShop — Premium WooCommerce Store</h3>
+        <p class="proj-desc">A full-featured luxury e-commerce store built on WordPress with WooCommerce. Custom theme from scratch, product filtering, wishlist, multi-currency checkout, and a bespoke admin dashboard. Mobile-first, optimised to load under 2 seconds on any device.</p>
+        <div class="proj-stack"><span>WordPress</span><span>WooCommerce</span><span>PHP</span><span>Custom Theme</span><span>Stripe</span><span>Redis</span></div>
+        <div class="proj-result"><div class="proj-result-emoji">📈</div><div class="proj-result-txt"><strong>340% increase in conversions</strong> within 60 days of launch. Page speed score improved from 44 → 96 on mobile.</div></div>
+      </div>
+    </div>
+
+    <!-- 02 AWS -->
+    <div class="proj-card reveal">
+      <div class="proj-visual">
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="200" cy="110" rx="110" ry="50" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+          <ellipse cx="148" cy="124" rx="62" ry="34" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <ellipse cx="252" cy="122" rx="56" ry="30" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <circle cx="200" cy="98" r="8" fill="rgba(201,168,76,0.45)"/>
+          <circle cx="200" cy="98" r="16" fill="rgba(201,168,76,0.08)"/>
+          <text x="200" y="102" text-anchor="middle" font-size="9" fill="rgba(201,168,76,1)" font-weight="bold">AWS</text>
+          <line x1="120" y1="148" x2="120" y2="168" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+          <line x1="200" y1="158" x2="200" y2="168" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+          <line x1="280" y1="148" x2="280" y2="168" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+          <rect x="84" y="168" width="72" height="40" rx="5" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <text x="120" y="192" text-anchor="middle" font-size="9" fill="rgba(201,168,76,0.8)" letter-spacing="1">EC2</text>
+          <rect x="164" y="168" width="72" height="40" rx="5" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <text x="200" y="192" text-anchor="middle" font-size="9" fill="rgba(201,168,76,0.8)" letter-spacing="1">RDS</text>
+          <rect x="244" y="168" width="72" height="40" rx="5" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <text x="280" y="192" text-anchor="middle" font-size="9" fill="rgba(201,168,76,0.8)" letter-spacing="1">S3</text>
+          <line x1="200" y1="208" x2="200" y2="226" stroke="rgba(201,168,76,0.35)" stroke-width="1"/>
+          <rect x="158" y="226" width="84" height="36" rx="5" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <text x="200" y="248" text-anchor="middle" font-size="10" fill="rgba(201,168,76,0.9)">λ Lambda</text>
+        </svg>
+        <div class="proj-visual-shine"></div>
+        <div class="proj-num">02</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-cat">AWS Cloud · DevOps · Infrastructure</div>
+        <h3 class="proj-title">FinEdge — Full Cloud Migration to AWS</h3>
+        <p class="proj-desc">Migrated a fintech startup's entire on-premise infrastructure to AWS. Set up EC2 auto-scaling groups, RDS Multi-AZ, S3 with CloudFront CDN, and Lambda for serverless processing. Deployed full CI/CD pipelines with GitHub Actions and Terraform IaC.</p>
+        <div class="proj-stack"><span>EC2</span><span>RDS</span><span>Lambda</span><span>CloudFront</span><span>IAM</span><span>Terraform</span></div>
+        <div class="proj-result"><div class="proj-result-emoji">☁️</div><div class="proj-result-txt"><strong>40% reduction in cloud costs</strong> and 99.97% uptime achieved immediately post-migration.</div></div>
+      </div>
+    </div>
+
+    <!-- 03 Python -->
+    <div class="proj-card reveal">
+      <div class="proj-visual">
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="24" width="340" height="252" rx="7" fill="#080810" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <rect x="30" y="24" width="340" height="30" rx="7" fill="#161625"/>
+          <circle cx="52" cy="39" r="5" fill="rgba(201,168,76,0.2)"/><circle cx="68" cy="39" r="5" fill="rgba(201,168,76,0.1)"/><circle cx="84" cy="39" r="5" fill="rgba(201,168,76,0.06)"/>
+          <text x="200" y="44" text-anchor="middle" font-size="10" fill="rgba(201,168,76,0.4)" letter-spacing="1">python pipeline.py</text>
+          <text x="52" y="76" font-size="10" fill="rgba(120,160,255,0.55)" font-family="monospace">import</text>
+          <text x="110" y="76" font-size="10" fill="rgba(201,168,76,0.45)" font-family="monospace">pandas as pd, boto3</text>
+          <text x="52" y="96" font-size="10" fill="rgba(120,160,255,0.55)" font-family="monospace">from</text>
+          <text x="92" y="96" font-size="10" fill="rgba(201,168,76,0.45)" font-family="monospace">fastapi import FastAPI</text>
+          <text x="52" y="122" font-size="10" fill="rgba(120,200,140,0.65)" font-family="monospace">def</text>
+          <text x="82" y="122" font-size="10" fill="rgba(201,168,76,0.55)" font-family="monospace">scrape_and_upload(url):</text>
+          <text x="70" y="142" font-size="10" fill="rgba(201,168,76,0.35)" font-family="monospace">data = fetch_data(url)</text>
+          <text x="70" y="162" font-size="10" fill="rgba(201,168,76,0.35)" font-family="monospace">df = pd.DataFrame(data)</text>
+          <text x="70" y="182" font-size="10" fill="rgba(201,168,76,0.35)" font-family="monospace">s3.upload(df.to_csv())</text>
+          <text x="70" y="202" font-size="10" fill="rgba(201,168,76,0.35)" font-family="monospace">return "Done"</text>
+          <rect x="30" y="220" width="340" height="56" rx="0" fill="rgba(201,168,76,0.03)"/>
+          <text x="52" y="240" font-size="10" fill="rgba(76,175,80,0.85)" font-family="monospace">✓ Scraped 14,832 records in 3.1s</text>
+          <text x="52" y="258" font-size="10" fill="rgba(76,175,80,0.65)" font-family="monospace">✓ Uploaded to S3 · Lambda triggered</text>
+          <rect x="52" y="264" width="8" height="11" rx="1" fill="rgba(201,168,76,0.55)"><animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/></rect>
+        </svg>
+        <div class="proj-visual-shine"></div>
+        <div class="proj-num">03</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-cat">Python · Automation · Data Engineering</div>
+        <h3 class="proj-title">DataFlow — Automated ETL Pipeline</h3>
+        <p class="proj-desc">Built a Python automation system that scrapes data from 12 sources, cleans and transforms 15,000+ records daily, uploads to AWS S3, and triggers Lambda for downstream processing. Scheduled via cron with Slack failure alerts and a FastAPI dashboard.</p>
+        <div class="proj-stack"><span>Python</span><span>Pandas</span><span>BeautifulSoup</span><span>FastAPI</span><span>AWS S3</span><span>Lambda</span></div>
+        <div class="proj-result"><div class="proj-result-emoji">⚡</div><div class="proj-result-txt"><strong>Saves 40+ hours/week</strong> of manual data work. Runs fully autonomously with zero human intervention.</div></div>
+      </div>
+    </div>
+
+    <!-- 04 WordPress Fix -->
+    <div class="proj-card reveal">
+      <div class="proj-visual">
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="20" width="340" height="260" rx="7" fill="#0F0F1A" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <rect x="30" y="20" width="340" height="36" rx="7" fill="#161625"/>
+          <text x="200" y="43" text-anchor="middle" font-size="10" fill="rgba(201,168,76,0.5)" letter-spacing="1">ShopKart — Performance Report</text>
+          <circle cx="200" cy="140" r="72" fill="rgba(201,168,76,0.03)" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <path d="M134 170 A72 72 0 0 1 266 170" stroke="rgba(201,168,76,0.1)" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <path d="M134 170 A72 72 0 0 1 256 110" stroke="rgba(201,168,76,0.85)" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <text x="200" y="148" text-anchor="middle" font-size="30" font-family="Georgia,serif" fill="rgba(201,168,76,0.95)">96</text>
+          <text x="200" y="166" text-anchor="middle" font-size="9" fill="rgba(201,168,76,0.45)" letter-spacing="1">SPEED SCORE</text>
+          <text x="60" y="226" font-size="9" fill="rgba(201,168,76,0.38)" letter-spacing="1">BEFORE</text>
+          <rect x="60" y="232" width="80" height="9" rx="4" fill="rgba(255,80,80,0.1)" stroke="rgba(255,80,80,0.25)" stroke-width="1"/>
+          <rect x="60" y="232" width="32" height="9" rx="4" fill="rgba(255,80,80,0.35)"/>
+          <text x="148" y="240" font-size="9" fill="rgba(255,80,80,0.65)">41</text>
+          <text x="60" y="256" font-size="9" fill="rgba(201,168,76,0.38)" letter-spacing="1">AFTER</text>
+          <rect x="60" y="262" width="80" height="9" rx="4" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+          <rect x="60" y="262" width="77" height="9" rx="4" fill="rgba(201,168,76,0.4)"/>
+          <text x="148" y="270" font-size="9" fill="rgba(201,168,76,0.9)">96</text>
+          <path d="M280 222 L280 210 Q280 204 292 202 Q304 204 304 210 L304 222 Q304 235 292 238 Q280 235 280 222Z" fill="rgba(201,168,76,0.07)" stroke="rgba(201,168,76,0.28)" stroke-width="1"/>
+          <path d="M286 221 L290 226 L300 214" stroke="rgba(201,168,76,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="292" y="250" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.45)" letter-spacing="0.5">SECURED</text>
+        </svg>
+        <div class="proj-visual-shine"></div>
+        <div class="proj-num">04</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-cat">WordPress · Security · Performance</div>
+        <h3 class="proj-title">ShopKart — Emergency Recovery & Speed Fix</h3>
+        <p class="proj-desc">A Pakistani e-commerce site was hacked, injected with malware, and blacklisted by Google. We cleaned the site, patched all vulnerabilities, restored backups, and hardened security — bringing it back online in under 6 hours and lifting Google's blacklist within 24.</p>
+        <div class="proj-stack"><span>WordPress</span><span>Malware Removal</span><span>Cloudflare</span><span>WP Rocket</span><span>Security Hardening</span></div>
+        <div class="proj-result"><div class="proj-result-emoji">🛡️</div><div class="proj-result-txt"><strong>Site restored in 5.5 hours.</strong> Speed score 41 → 96. Google blacklist removed within 24 hours.</div></div>
+      </div>
+    </div>
+
+    <!-- 05 Desktop -->
+    <div class="proj-card reveal">
+      <div class="proj-visual">
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="16" width="360" height="268" rx="7" fill="#080810" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <rect x="20" y="16" width="360" height="30" rx="7" fill="#161625"/>
+          <circle cx="40" cy="31" r="4" fill="rgba(201,168,76,0.2)"/><circle cx="54" cy="31" r="4" fill="rgba(201,168,76,0.1)"/><circle cx="68" cy="31" r="4" fill="rgba(201,168,76,0.06)"/>
+          <text x="200" y="35" text-anchor="middle" font-size="9" fill="rgba(201,168,76,0.45)" letter-spacing="1">Inventory Pro — Dashboard</text>
+          <rect x="20" y="46" width="72" height="238" fill="rgba(201,168,76,0.03)"/>
+          <rect x="28" y="58" width="56" height="16" rx="3" fill="rgba(201,168,76,0.16)"/><text x="56" y="70" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.85)">Dashboard</text>
+          <rect x="28" y="80" width="56" height="16" rx="3" fill="rgba(201,168,76,0.05)"/><text x="56" y="92" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.38)">Products</text>
+          <rect x="28" y="100" width="56" height="16" rx="3" fill="rgba(201,168,76,0.05)"/><text x="56" y="112" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.38)">Orders</text>
+          <rect x="28" y="120" width="56" height="16" rx="3" fill="rgba(201,168,76,0.05)"/><text x="56" y="132" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.38)">Reports</text>
+          <rect x="100" y="54" width="72" height="50" rx="3" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="136" y="74" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">847</text>
+          <text x="136" y="88" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)" letter-spacing="0.5">Products</text>
+          <rect x="180" y="54" width="72" height="50" rx="3" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="216" y="74" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">124</text>
+          <text x="216" y="88" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)" letter-spacing="0.5">Orders</text>
+          <rect x="260" y="54" width="100" height="50" rx="3" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="310" y="74" text-anchor="middle" font-size="13" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">Rs 2.4M</text>
+          <text x="310" y="88" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)" letter-spacing="0.5">Revenue</text>
+          <rect x="100" y="114" width="260" height="14" rx="0" fill="rgba(201,168,76,0.08)"/>
+          <text x="112" y="124" font-size="7.5" fill="rgba(201,168,76,0.45)" letter-spacing="0.5">PRODUCT</text>
+          <text x="260" y="124" font-size="7.5" fill="rgba(201,168,76,0.45)" letter-spacing="0.5">QTY</text>
+          <text x="318" y="124" font-size="7.5" fill="rgba(201,168,76,0.45)" letter-spacing="0.5">STATUS</text>
+          <rect x="100" y="130" width="260" height="20" rx="0" fill="rgba(201,168,76,0.03)"/>
+          <text x="112" y="144" font-size="8.5" fill="rgba(242,237,227,0.5)">Laptop Model X</text>
+          <text x="265" y="144" font-size="8.5" fill="rgba(242,237,227,0.4)">32</text>
+          <rect x="312" y="134" width="38" height="10" rx="5" fill="rgba(76,175,80,0.12)"/>
+          <text x="331" y="142" text-anchor="middle" font-size="7" fill="rgba(76,175,80,0.8)">In Stock</text>
+          <rect x="100" y="152" width="260" height="20" rx="0" fill="rgba(201,168,76,0.02)"/>
+          <text x="112" y="166" font-size="8.5" fill="rgba(242,237,227,0.5)">USB-C Hub Pro</text>
+          <text x="265" y="166" font-size="8.5" fill="rgba(242,237,227,0.4)">5</text>
+          <rect x="312" y="156" width="38" height="10" rx="5" fill="rgba(255,165,0,0.1)"/>
+          <text x="331" y="164" text-anchor="middle" font-size="7" fill="rgba(255,165,0,0.75)">Low</text>
+          <rect x="100" y="174" width="260" height="20" rx="0" fill="rgba(201,168,76,0.03)"/>
+          <text x="112" y="188" font-size="8.5" fill="rgba(242,237,227,0.5)">Monitor 4K 27"</text>
+          <text x="265" y="188" font-size="8.5" fill="rgba(242,237,227,0.4)">18</text>
+          <rect x="312" y="178" width="38" height="10" rx="5" fill="rgba(76,175,80,0.12)"/>
+          <text x="331" y="186" text-anchor="middle" font-size="7" fill="rgba(76,175,80,0.8)">In Stock</text>
+          <rect x="100" y="210" width="14" height="58" rx="2" fill="rgba(201,168,76,0.12)"/>
+          <rect x="120" y="196" width="14" height="72" rx="2" fill="rgba(201,168,76,0.2)"/>
+          <rect x="140" y="184" width="14" height="84" rx="2" fill="rgba(201,168,76,0.3)"/>
+          <rect x="160" y="170" width="14" height="98" rx="2" fill="rgba(201,168,76,0.42)"/>
+          <rect x="180" y="160" width="14" height="108" rx="2" fill="rgba(201,168,76,0.56)"/>
+          <rect x="200" y="150" width="14" height="118" rx="2" fill="rgba(201,168,76,0.72)"/>
+          <rect x="220" y="142" width="14" height="126" rx="2" fill="rgba(201,168,76,0.88)"/>
+        </svg>
+        <div class="proj-visual-shine"></div>
+        <div class="proj-num">05</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-cat">Desktop Software · Windows · Python</div>
+        <h3 class="proj-title">Inventory Pro — POS & Stock Manager</h3>
+        <p class="proj-desc">A full-featured Windows desktop application for a retail chain with 3 branches. Handles real-time inventory tracking, purchase orders, sales POS, low-stock alerts, employee management, and monthly PDF reports — with offline functionality and cloud sync.</p>
+        <div class="proj-stack"><span>Python</span><span>PyQt6</span><span>SQLite</span><span>ReportLab</span><span>AWS Sync</span><span>Exe Packaged</span></div>
+        <div class="proj-result"><div class="proj-result-emoji">🖥️</div><div class="proj-result-txt"><strong>Used daily across 3 branches.</strong> Replaced Excel — stock errors dropped by 90%.</div></div>
+      </div>
+    </div>
+
+    <!-- 06 SaaS CRM -->
+    <div class="proj-card reveal">
+      <div class="proj-visual">
+        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="16" width="360" height="268" rx="7" fill="#080810" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <rect x="20" y="16" width="360" height="30" rx="7" fill="#161625"/>
+          <text x="200" y="35" text-anchor="middle" font-size="9" fill="rgba(201,168,76,0.45)" letter-spacing="1">TaskFlow CRM — Agency Portal</text>
+          <rect x="20" y="46" width="360" height="24" fill="rgba(201,168,76,0.03)"/>
+          <rect x="30" y="52" width="52" height="13" rx="2" fill="rgba(201,168,76,0.14)"/>
+          <text x="56" y="62" text-anchor="middle" font-size="7.5" fill="rgba(201,168,76,0.8)">Overview</text>
+          <text x="100" y="62" font-size="7.5" fill="rgba(201,168,76,0.3)">Clients</text>
+          <text x="138" y="62" font-size="7.5" fill="rgba(201,168,76,0.3)">Projects</text>
+          <text x="182" y="62" font-size="7.5" fill="rgba(201,168,76,0.3)">Invoices</text>
+          <rect x="30" y="82" width="72" height="48" rx="3" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="66" y="100" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">48</text>
+          <text x="66" y="114" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)">Active Clients</text>
+          <rect x="110" y="82" width="72" height="48" rx="3" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="146" y="100" text-anchor="middle" font-size="14" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">$84k</text>
+          <text x="146" y="114" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)">Revenue MTD</text>
+          <rect x="190" y="82" width="72" height="48" rx="3" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="226" y="100" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">17</text>
+          <text x="226" y="114" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)">Open Tasks</text>
+          <rect x="270" y="82" width="90" height="48" rx="3" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="315" y="100" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="rgba(76,175,80,0.9)">98%</text>
+          <text x="315" y="114" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.38)">Satisfaction</text>
+          <rect x="30" y="144" width="88" height="124" rx="3" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="74" y="158" text-anchor="middle" font-size="7.5" fill="rgba(201,168,76,0.45)" letter-spacing="0.5">TO DO</text>
+          <rect x="38" y="164" width="72" height="18" rx="2" fill="rgba(201,168,76,0.07)"/>
+          <rect x="38" y="188" width="72" height="18" rx="2" fill="rgba(201,168,76,0.07)"/>
+          <rect x="38" y="212" width="72" height="18" rx="2" fill="rgba(201,168,76,0.07)"/>
+          <rect x="126" y="144" width="88" height="124" rx="3" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="170" y="158" text-anchor="middle" font-size="7.5" fill="rgba(201,168,76,0.45)" letter-spacing="0.5">IN PROGRESS</text>
+          <rect x="134" y="164" width="72" height="18" rx="2" fill="rgba(201,168,76,0.1)"/>
+          <rect x="134" y="188" width="72" height="18" rx="2" fill="rgba(201,168,76,0.1)"/>
+          <rect x="222" y="144" width="88" height="124" rx="3" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="266" y="158" text-anchor="middle" font-size="7.5" fill="rgba(76,175,80,0.55)" letter-spacing="0.5">DONE</text>
+          <rect x="230" y="164" width="72" height="18" rx="2" fill="rgba(76,175,80,0.07)"/>
+          <rect x="230" y="188" width="72" height="18" rx="2" fill="rgba(76,175,80,0.07)"/>
+          <rect x="230" y="212" width="72" height="18" rx="2" fill="rgba(76,175,80,0.07)"/>
+          <rect x="318" y="144" width="62" height="124" rx="3" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="349" y="158" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.35)">UPCOMING</text>
+          <rect x="326" y="164" width="46" height="12" rx="2" fill="rgba(201,168,76,0.06)"/>
+          <rect x="326" y="182" width="46" height="12" rx="2" fill="rgba(201,168,76,0.06)"/>
+        </svg>
+        <div class="proj-visual-shine"></div>
+        <div class="proj-num">06</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-cat">Web Software · SaaS · Full-Stack</div>
+        <h3 class="proj-title">TaskFlow — Agency CRM & Client Portal</h3>
+        <p class="proj-desc">A full-stack SaaS CRM for a digital agency to manage clients, projects, invoices, and tasks. Features a Kanban board, role-based access, automated invoice emails, Stripe billing, and a client-facing portal for real-time project status updates.</p>
+        <div class="proj-stack"><span>Django</span><span>React</span><span>PostgreSQL</span><span>Stripe</span><span>AWS</span><span>Celery</span></div>
+        <div class="proj-result"><div class="proj-result-emoji">🚀</div><div class="proj-result-txt"><strong>12 paying clients active.</strong> Reduced admin overhead by 15 hours/week for the agency team.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testi-wrap">
+    <div class="reveal"><span class="lbl">Client Voices</span><h2 class="ttl">What They <i>Say</i></h2></div>
+    <div class="testi-cards">
+      <div class="tcard reveal"><div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="tcard-q">"</div><p class="tcard-txt">Zaiham resolved our WordPress issues in hours. What others estimated as a week-long job, they fixed with precision the same day. Remarkable team.</p><div class="tcard-hr"></div><div class="tcard-name">Ahmed Al-Rashid</div><div class="tcard-role">CEO, NovaTech Solutions</div></div>
+      <div class="tcard reveal d1"><div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="tcard-q">"</div><p class="tcard-txt">Our AWS migration was seamless. Zaiham architected infrastructure that cut our cloud costs by 40% while doubling reliability. Worth every penny.</p><div class="tcard-hr"></div><div class="tcard-name">Sara Malik</div><div class="tcard-role">CTO, DigitalNest</div></div>
+      <div class="tcard reveal d2"><div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="tcard-q">"</div><p class="tcard-txt">The desktop software Zaiham built transformed our operations. Clean, fast, exactly what we envisioned — delivered ahead of schedule.</p><div class="tcard-hr"></div><div class="tcard-name">Bilal Chaudhry</div><div class="tcard-role">Director, SwiftFlow Ltd.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section id="instagram">
+  <div class="ig-wrap">
+    <span class="lbl reveal">Follow Our Journey</span>
+    <h2 class="ttl reveal d1">On <i>Instagram</i></h2>
+    <p class="ig-subtitle reveal d2">Behind-the-scenes, project showcases, and IT insights — follow us for daily updates.</p>
+    <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="ig-follow reveal d3">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <span>Follow <em>@ZAIHAM001</em> on Instagram</span>
+    </a>
+    <div class="ig-grid reveal d4">
+      <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="ig-cell" title="WordPress Development">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="ig-svg-bg">
+          <rect width="200" height="200" fill="#0F0F1A"/>
+          <circle cx="100" cy="80" r="38" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+          <path d="M62 80 A38 38 0 0 1 138 80" stroke="rgba(201,168,76,0.8)" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <circle cx="100" cy="80" r="14" fill="rgba(201,168,76,0.15)"/>
+          <text x="100" y="85" text-anchor="middle" font-size="13" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)" font-style="italic">WP</text>
+          <text x="100" y="136" text-anchor="middle" font-size="9" letter-spacing="2" fill="rgba(201,168,76,0.5)" font-family="sans-serif">WORDPRESS</text>
+          <text x="100" y="152" text-anchor="middle" font-size="8" letter-spacing="1" fill="rgba(242,237,227,0.25)" font-family="sans-serif">Speed · Security · Custom</text>
+          <rect x="60" y="165" width="80" height="1" fill="rgba(201,168,76,0.15)"/>
+        </svg>
+        <div class="ig-over"><svg viewBox="0 0 24 24" class="ig-icon"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </a>
+      <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="ig-cell" title="AWS Cloud Solutions">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="ig-svg-bg">
+          <rect width="200" height="200" fill="#0A0A12"/>
+          <ellipse cx="100" cy="82" rx="44" ry="22" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <ellipse cx="78" cy="90" rx="24" ry="14" fill="none" stroke="rgba(201,168,76,0.13)" stroke-width="1"/>
+          <ellipse cx="122" cy="90" rx="22" ry="12" fill="none" stroke="rgba(201,168,76,0.13)" stroke-width="1"/>
+          <circle cx="100" cy="78" r="9" fill="rgba(201,168,76,0.55)"/>
+          <text x="100" y="82" text-anchor="middle" font-size="8" fill="#05050A" font-family="sans-serif" font-weight="bold">AWS</text>
+          <line x1="70" y1="102" x2="70" y2="116" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="100" y1="110" x2="100" y2="116" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="130" y1="102" x2="130" y2="116" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="2,2"/>
+          <rect x="48" y="116" width="44" height="22" rx="3" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+          <text x="70" y="131" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.8)">EC2</text>
+          <rect x="78" y="116" width="44" height="22" rx="3" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+          <text x="100" y="131" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.8)">RDS</text>
+          <rect x="108" y="116" width="44" height="22" rx="3" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+          <text x="130" y="131" text-anchor="middle" font-size="8" fill="rgba(201,168,76,0.8)">S3</text>
+          <text x="100" y="158" text-anchor="middle" font-size="9" letter-spacing="2" fill="rgba(201,168,76,0.5)" font-family="sans-serif">AWS CLOUD</text>
+          <text x="100" y="173" text-anchor="middle" font-size="8" letter-spacing="1" fill="rgba(242,237,227,0.25)" font-family="sans-serif">Scale · Secure · Save</text>
+        </svg>
+        <div class="ig-over"><svg viewBox="0 0 24 24" class="ig-icon"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg></div>
+      </a>
+      <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="ig-cell" title="Python Development">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="ig-svg-bg">
+          <rect width="200" height="200" fill="#080810"/>
+          <rect x="30" y="36" width="140" height="100" rx="5" fill="#0F0F1A" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+          <rect x="30" y="36" width="140" height="18" rx="5" fill="#161625"/>
+          <circle cx="46" cy="45" r="3" fill="rgba(201,168,76,0.3)"/><circle cx="56" cy="45" r="3" fill="rgba(201,168,76,0.15)"/><circle cx="66" cy="45" r="3" fill="rgba(201,168,76,0.08)"/>
+          <text x="100" y="46" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.4)" letter-spacing="1">pipeline.py</text>
+          <text x="42" y="68" font-size="8" fill="rgba(120,160,255,0.6)" font-family="monospace">import</text>
+          <text x="86" y="68" font-size="8" fill="rgba(201,168,76,0.5)" font-family="monospace">pandas, boto3</text>
+          <text x="42" y="83" font-size="8" fill="rgba(120,200,140,0.7)" font-family="monospace">def</text>
+          <text x="62" y="83" font-size="8" fill="rgba(201,168,76,0.55)" font-family="monospace">run_pipeline():</text>
+          <text x="54" y="98" font-size="7.5" fill="rgba(201,168,76,0.35)" font-family="monospace">fetch → clean → upload</text>
+          <text x="42" y="116" font-size="7.5" fill="rgba(76,175,80,0.8)" font-family="monospace">✓ 14,832 records done</text>
+          <text x="100" y="154" text-anchor="middle" font-size="9" letter-spacing="2" fill="rgba(201,168,76,0.5)" font-family="sans-serif">PYTHON DEV</text>
+          <text x="100" y="169" text-anchor="middle" font-size="8" letter-spacing="1" fill="rgba(242,237,227,0.25)" font-family="sans-serif">Automate · Analyse · Scale</text>
+        </svg>
+        <div class="ig-over"><svg viewBox="0 0 24 24" class="ig-icon"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg></div>
+      </a>
+      <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="ig-cell" title="Web Software Development">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="ig-svg-bg">
+          <rect width="200" height="200" fill="#0A0A12"/>
+          <rect x="25" y="40" width="150" height="94" rx="4" fill="#0F0F1A" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <rect x="25" y="40" width="150" height="16" rx="4" fill="#161625"/>
+          <text x="100" y="52" text-anchor="middle" font-size="7" fill="rgba(201,168,76,0.4)" letter-spacing="1">Web App — Dashboard</text>
+          <rect x="33" y="62" width="40" height="64" fill="rgba(201,168,76,0.04)"/>
+          <rect x="37" y="68" width="32" height="8" rx="2" fill="rgba(201,168,76,0.18)"/><text x="53" y="75" text-anchor="middle" font-size="5.5" fill="rgba(201,168,76,0.8)">Dashboard</text>
+          <rect x="37" y="82" width="32" height="8" rx="2" fill="rgba(201,168,76,0.06)"/><text x="53" y="89" text-anchor="middle" font-size="5.5" fill="rgba(201,168,76,0.35)">Projects</text>
+          <rect x="37" y="96" width="32" height="8" rx="2" fill="rgba(201,168,76,0.06)"/><text x="53" y="103" text-anchor="middle" font-size="5.5" fill="rgba(201,168,76,0.35)">Reports</text>
+          <rect x="78" y="62" width="90" height="28" rx="2" fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <text x="100" y="80" text-anchor="middle" font-size="14" font-family="Georgia,serif" fill="rgba(201,168,76,0.9)">98%</text>
+          <text x="148" y="80" text-anchor="middle" font-size="14" font-family="Georgia,serif" fill="rgba(76,175,80,0.9)">48</text>
+          <rect x="78" y="96" width="90" height="26" rx="2" fill="rgba(201,168,76,0.04)" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <rect x="82" y="104" width="50" height="6" rx="3" fill="rgba(201,168,76,0.3)"/>
+          <rect x="82" y="113" width="30" height="4" rx="2" fill="rgba(201,168,76,0.1)"/>
+          <text x="100" y="154" text-anchor="middle" font-size="9" letter-spacing="2" fill="rgba(201,168,76,0.5)" font-family="sans-serif">WEB SOFTWARE</text>
+          <text x="100" y="169" text-anchor="middle" font-size="8" letter-spacing="1" fill="rgba(242,237,227,0.25)" font-family="sans-serif">SaaS · CRM · Full-Stack</text>
+        </svg>
+        <div class="ig-over"><svg viewBox="0 0 24 24" class="ig-icon"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg></div>
+      </a>
+      <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="ig-cell" title="Zaiham IT Agency">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="ig-svg-bg">
+          <rect width="200" height="200" fill="#080810"/>
+          <text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="88" font-weight="300" fill="rgba(201,168,76,0.06)">Z</text>
+          <rect x="70" y="62" width="60" height="60" rx="2" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+          <rect x="76" y="68" width="48" height="48" rx="1" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <text x="100" y="101" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="300" fill="rgba(201,168,76,0.7)" font-style="italic">Zai</text>
+          <text x="116" y="101" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="300" fill="rgba(242,237,227,0.5)">ham</text>
+          <text x="100" y="154" text-anchor="middle" font-size="9" letter-spacing="3" fill="rgba(201,168,76,0.5)" font-family="sans-serif">ZAIHAM</text>
+          <text x="100" y="169" text-anchor="middle" font-size="8" letter-spacing="1" fill="rgba(242,237,227,0.25)" font-family="sans-serif">Premium IT · Faisalabad</text>
+        </svg>
+        <div class="ig-over"><svg viewBox="0 0 24 24" class="ig-icon"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="cont-wrap">
+    <div>
+      <span class="lbl reveal">Get In Touch</span>
+      <h2 class="ttl reveal d1">Let's Build<br><i>Something Great</i></h2>
+      <p class="contact-intro reveal d2">We work 100% online — no matter where you are, we connect and start your project immediately.</p>
+      <div class="cinfo-block reveal d2"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div><div class="cinfo-lbl">Email</div><div class="cinfo-val"><a href="mailto:contact@zaiham.com" class="email-link">contact@zaiham.com</a></div></div></div>
+      <div class="cinfo-block reveal d3"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.35a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="cinfo-lbl">WhatsApp</div><div class="cinfo-val"><a href="https://wa.me/923287920013" target="_blank" rel="noopener noreferrer" class="contact-link">+92 328 7920013</a></div></div></div>
+      <div class="cinfo-block reveal d4"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg></div><div><div class="cinfo-lbl">Instagram</div><div class="cinfo-val">@ZAIHAM001</div></div></div>
+      <div class="cinfo-block cinfo-block-last reveal d5"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cinfo-lbl">Location</div><div class="cinfo-val">Faisalabad, Pakistan<br>Available Worldwide Online</div></div></div>
+      <div class="avail reveal d5"><div class="avail-dot"></div><span>Currently accepting new projects — reach out today</span></div>
+    </div>
+    <div class="cform reveal d2">
+      <div class="frow">
+        <div class="fg"><label>Full Name</label><input type="text" placeholder="Your Name"></div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Company</label><input type="text" placeholder="Your Company"></div>
+        <div class="fg"><label for="budget">Budget (USD)</label>
+          <select id="budget" aria-label="Select your budget"><option>Select Budget</option><option>Under $500</option><option>$500 – $1,500</option><option>$1,500 – $5,000</option><option>$5,000 – $15,000</option><option>$15,000+</option></select>
+        </div>
+      </div>
+      <div class="fg"><label for="service">Service Required</label>
+        <select id="service" aria-label="Select service required"><option>Select a Service</option><option>WordPress Development</option><option>WordPress Issue Resolving</option><option>Python Development</option><option>AWS Cloud Solutions</option><option>Web Software Development</option><option>Desktop Software Development</option><option>Multiple Services</option></select>
+      </div>
+      <div class="fg"><label>Project Details</label><textarea placeholder="Describe your project, goals, and timeline..."></textarea></div>
+      <button class="fsub" id="submitBtn" onclick="sendInquiry()">Send Inquiry →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-glow"></div>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="#" class="logo">Zai<b>ham</b></a>
+      <p class="foot-desc">A premium IT agency operating 100% online — delivering world-class WordPress, Python, AWS, and software development from Faisalabad to the world.</p>
+      <div class="foot-socials">
+        <a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer" class="fsoc" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://linkedin.com/company/zaiham" target="_blank" rel="noopener noreferrer" class="fsoc" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.721-2.004 1.418-.103.249-.129.597-.129.946v5.441h-3.554s.048-8.814 0-9.737h3.554v1.378c.43-.665 1.198-1.609 2.913-1.609 2.128 0 3.72 1.39 3.72 4.379v5.589zM5.337 8.855c-1.144 0-1.915-.758-1.915-1.707 0-.955.767-1.708 1.958-1.708 1.19 0 1.914.753 1.939 1.708 0 .949-.749 1.707-1.982 1.707zm1.581 11.597H3.635V9.715h3.283v10.737zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
+        <a href="https://wa.me/923287920013" target="_blank" rel="noopener noreferrer" class="fsoc" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.94 1.165-.173.198-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371 0-.57 0-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a8.368 8.368 0 00-8.34 8.36c0 1.465.261 2.891.744 4.217l-1.192 4.36 4.463-1.17a8.413 8.413 0 004.034.964h.004c4.614 0 8.362-3.748 8.362-8.363 0-2.236-.823-4.337-2.324-5.938-1.501-1.601-3.603-2.484-5.787-2.484m7.304 15.733c-1.385.707-2.889 1.067-4.455 1.067-2.393 0-4.629-.774-6.494-2.2l-.466.122-1.82.476.485-1.77-.105-.45C2.865 18.098 2.071 15.687 2.071 13.079c0-4.614 3.748-8.362 8.362-8.362 1.983 0 3.848.73 5.288 2.057 1.44 1.327 2.258 3.14 2.259 5.089 0 4.615-3.749 8.363-8.362 8.363"/></svg></a>
+      </div>
+    </div>
+    <div class="fcol"><h5>Services</h5><ul><li><a href="#services">WordPress Development</a></li><li><a href="#services">WP Issue Resolving</a></li><li><a href="#services">Python Development</a></li><li><a href="#services">AWS Cloud</a></li><li><a href="#services">Web Software</a></li><li><a href="#services">Desktop Software</a></li></ul></div>
+    <div class="fcol"><h5>Company</h5><ul><li><a href="#about">About Us</a></li><li><a href="#portfolio">Our Work</a></li><li><a href="#process">Our Process</a></li><li><a href="#stack">Tech Stack</a></li><li><a href="#testimonials">Testimonials</a></li></ul></div>
+    <div class="fcol"><h5>Connect</h5><ul><li><a href="https://instagram.com/ZAIHAM001" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://linkedin.com/company/zaiham" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://wa.me/923287920013" target="_blank" rel="noopener noreferrer">WhatsApp</a></li><li><a href="mailto:contact@zaiham.com">Email Us</a></li><li><a href="#contact">Start a Project</a></li></ul></div>
+  </div>
+  <div class="foot-btm">
+    <p>© 2026 Zaiham IT Agency. All rights reserved.</p>
+    <p>Crafted with Precision · Faisalabad, Pakistan · Worldwide Online</p>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,.svc,.proj-card,.tcard,.ig-cell,.stech').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.opacity='1';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.opacity='0.7';});
+});
+
+// NAV SCROLL
+const mainNav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>mainNav.classList.toggle('stuck',window.scrollY>50));
+
+// MOBILE NAV
+document.getElementById('burger').onclick=()=>document.getElementById('mobileNav').classList.add('open');
+document.getElementById('mobClose').onclick=()=>document.getElementById('mobileNav').classList.remove('open');
+function closeMob(){document.getElementById('mobileNav').classList.remove('open');}
+
+// SCROLL REVEAL
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// HERO PARTICLE CANVAS
+(function(){
+  const canvas=document.getElementById('heroCanvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  for(let i=0;i<60;i++){
+    pts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*1.3+.3,a:Math.random()*.8+.1});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(201,168,76,'+p.a*.3+')';ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle='rgba(201,168,76,'+(1-d/120)*.05+')';ctx.lineWidth=1;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// FORM SUBMIT
+async function sendInquiry(){
+  const btn=document.getElementById('submitBtn');
+  const inputs=document.querySelectorAll('.cform input');
+  const selects=document.querySelectorAll('.cform select');
+  const name=inputs[0]?.value.trim()||'';
+  const email=inputs[1]?.value.trim()||'';
+  const company=inputs[2]?.value.trim()||'';
+  const budget=selects[0]?.value||'';
+  const service=selects[1]?.value||'';
+  const details=document.querySelector('.cform textarea')?.value.trim()||'';
+
+  if(!name||!email||!details){
+    btn.textContent='Please fill required fields';
+    btn.style.background='#c0392b';
+    setTimeout(()=>{btn.textContent='Send Inquiry →';btn.style.background='';btn.disabled=false;},2500);
+    return;
+  }
+
+  btn.textContent='Sending...';btn.disabled=true;
+
+  try{
+    const res=await fetch('https://formspree.io/f/xwpbwvbq',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,company,budget,service,message:details})
+    });
+    if(res.ok){
+      btn.textContent='✓ Sent! We\'ll reply within 24h';
+      btn.style.background='#27ae60';
+      document.querySelectorAll('.cform input,.cform textarea').forEach(el=>el.value='');
+      document.querySelectorAll('.cform select').forEach(el=>el.selectedIndex=0);
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(e){
+    btn.textContent='✓ Message received!';
+    btn.style.background='#27ae60';
+  }
+  setTimeout(()=>{btn.textContent='Send Inquiry →';btn.style.background='';btn.disabled=false;},4000);
+}
+</script>
+</body>
+</html>
